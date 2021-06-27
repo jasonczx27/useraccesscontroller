@@ -33,11 +33,9 @@ module.exports = {
 async function controller(data, callback) {
     if (callback && typeof callback === "function") {
         var result = await callback(data);
-        // console.log("caresultlresult", JSON.stringify(result));
         return result;
     } else {
         console.log(`Callback Function NOT exist, ${typeof callback}`)
-        // console.log(error);
         return false;
     }
 }

@@ -30,7 +30,6 @@ app.post("/feature", async function (req, res) {
 
 
     const { featureName = null, email = null, enable = false } = req.body;
-    console.log(req.body)
     //#region mock failedDB
     /**
      * uses .env and the enable parameter to control over whether I send success or not
@@ -65,10 +64,20 @@ app.get("/feature", async function (req, res) {
     console.log(`captured request from ${ipaddr} using ${req.get("User-Agent")}`)
 
     try {
+        //#region COMMENTS
+        /**
+         * may refer all functions in features and determine which features to be accessed,
+         * any unrecognized features would be forced to be failed, trigerring the hasAccess = false.
+         * 
+         * I use regex to check on the mails on some of features, e.g. featureName 'gmail' allow anyone's associated with @gmail within their mail,
+         * so no-reply@gmail.com, moneylion@gmail.com could work in this case.
+         *  
+         */
 
+
+        //#endregionCOMMENTS
         appswitch.switch(req.query).then(
             val => {
-                console.log(val)
                 res.json(val ? result.giveAccess() : result.blockAccess())
 
             }
